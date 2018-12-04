@@ -3,6 +3,7 @@ package com.wordpress.liliangmader.myfragment
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -34,39 +35,38 @@ ThirdFragment.OnFragmentInteractionListener {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment, BlankFragment.newInstance("par1", "par2"), "Blank").commit()
-        }
 
         blankFragment = BlankFragment.newInstance("par1", "par2")
         secondFragment = SecondFragment.newInstance()
         thirdFragment = ThirdFragment.newInstance()
 
-
-        fab.setOnClickListener { view ->
-            if (savedInstanceState == null) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment, SecondFragment(), "Second")
-                    .commit()
-            }
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment, blankFragment, "Blank").commit()
         }
+
 
         val btnNext: Button = findViewById(R.id.btn_next)
         btnNext.setOnClickListener {
-            Toast.makeText(this, "click3", Toast.LENGTH_SHORT).show()
-            if (savedInstanceState == null) {
+            var currentFragmentTag=getCurrentFragment().tag
+            Toast.makeText(this, "current fragment =$currentFragmentTag", Toast.LENGTH_SHORT).show()
+          /**  if (savedInstanceState == null) {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragment, ThirdFragment(), "Third")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .addToBackStack("Third")
                     .commit()
-            }
+          //  }*/
 
         }
 
+    }
+
+    fun getCurrentFragment(): Fragment {
+       val currentFragment:Fragment = getSupportFragmentManager()
+            .findFragmentById(R.id.fragment)
+        return currentFragment
     }
 /**
         val btn2 = findViewById<View>(R.id.btn_goto2) as Button
@@ -104,7 +104,7 @@ ThirdFragment.OnFragmentInteractionListener {
             R.id.action_blank -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment, blankFragment)
+                    .replace(R.id.fragment, blankFragment, "Blank")
                     .addToBackStack(blankFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
@@ -113,7 +113,7 @@ ThirdFragment.OnFragmentInteractionListener {
             R.id.action_second -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment, secondFragment)
+                    .replace(R.id.fragment, secondFragment, "Second")
                     .addToBackStack(secondFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
@@ -122,7 +122,7 @@ ThirdFragment.OnFragmentInteractionListener {
             R.id.action_third -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment, thirdFragment)
+                    .replace(R.id.fragment, thirdFragment, "Third")
                     .addToBackStack(thirdFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
