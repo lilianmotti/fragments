@@ -25,10 +25,14 @@ ThirdFragment.OnFragmentInteractionListener {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    var btnNext: Button? =null
     lateinit var blankFragment: BlankFragment
     lateinit var secondFragment: SecondFragment
     lateinit var thirdFragment: ThirdFragment
 
+    val blankFragmentTag = "Blank"
+    val secondFragmentTag = "Second"
+    val thirdFragmentTag = "Third"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +50,12 @@ ThirdFragment.OnFragmentInteractionListener {
         }
 
 
-        val btnNext: Button = findViewById(R.id.btn_next)
-        btnNext.setOnClickListener {
-            var currentFragmentTag=getCurrentFragment().tag
-            Toast.makeText(this, "current fragment =$currentFragmentTag", Toast.LENGTH_SHORT).show()
-          /**  if (savedInstanceState == null) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment, ThirdFragment(), "Third")
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack("Third")
-                    .commit()
-          //  }*/
+        btnNext = findViewById(R.id.btn_next)
+        btnNext?.setOnClickListener {
+            var currentFragmentTag: String =getCurrentFragment().tag.toString()
+           Toast.makeText(this, getCurrentFragment().toString(), Toast.LENGTH_SHORT).show()
+            //  Toast.makeText(this, "current fragment =$currentFragmentTag", Toast.LENGTH_SHORT).show()
+            displayNextFragment(currentFragmentTag)
 
         }
 
@@ -68,27 +66,39 @@ ThirdFragment.OnFragmentInteractionListener {
             .findFragmentById(R.id.fragment)
         return currentFragment
     }
-/**
-        val btn2 = findViewById<View>(R.id.btn_goto2) as Button
 
-        btn2.setOnClickListener {
-        if (savedInstanceState == null) {
-        supportFragmentManager
-        .beginTransaction()
-        .replace(R.id.fragment, SecondFragment(), "Second")
-        .commit()
+    private fun displayNextFragment(tag: String){
+        when (tag) {
+            "Blank" -> {
+                //goes to second fragment
+                 supportFragmentManager
+                     .beginTransaction()
+                     .replace(R.id.fragment, SecondFragment(), secondFragmentTag)
+                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                     .addToBackStack(secondFragment.toString())
+                     .commit()
+            }
+            "Second" -> {
+                //goes to second fragment
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment, ThirdFragment(),thirdFragmentTag)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .addToBackStack(thirdFragment.toString())
+                    .commit()
+            }
+            "Third" ->{
+                //goes to second fragment
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment, BlankFragment(), blankFragmentTag)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .addToBackStack(blankFragment.toString())
+                    .commit()
+            }
         }
-        }
 
-
-    fun goto3(view: View) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment, ThirdFragment(), "Third")
-                .commit()
-
-            **/
-
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -104,7 +114,7 @@ ThirdFragment.OnFragmentInteractionListener {
             R.id.action_blank -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragment, blankFragment, "Blank")
+                    .replace(R.id.fragment, blankFragment, blankFragmentTag)
                     .addToBackStack(blankFragment.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
