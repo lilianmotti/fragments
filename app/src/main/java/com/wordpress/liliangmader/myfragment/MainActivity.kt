@@ -9,12 +9,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.support.v4.app.FragmentTransaction;
+import android.view.View
 import android.widget.Toast
 import com.wordpress.liliangmader.myfragment.Fragments.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BlankFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(),  OnFragmentInteractionListener {
+
+    override fun onButtonPressed( info: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onFragmentInteraction(info: String) {
        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
