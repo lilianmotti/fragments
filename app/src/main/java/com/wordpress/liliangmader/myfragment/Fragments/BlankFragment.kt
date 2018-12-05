@@ -18,23 +18,19 @@ import com.wordpress.liliangmader.myfragment.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [BlankFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [BlankFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
+
+
 class BlankFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+
     private lateinit var btn2: Button
     private lateinit var btn3: Button
+
+    var info = "hello"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,20 +49,11 @@ class BlankFragment : Fragment() {
         btn2 = view.findViewById(R.id.btn_goto2)
 
         btn2.setOnClickListener {
-            Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "click fragment", Toast.LENGTH_SHORT).show()
+            info = "button 2"
+            onButtonPressed(info)
         }
 
-       // btn3 = view.findViewById(R.id.btn_goto3)
-
-       // btn3.setOnClickListener {
-         /**  // Toast.makeText(context, "click", Toast.LENGTH_SHORT).show()
-            val fragmentManager = getFragmentManager()
-            fragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment, SecondFragment(), "Second")
-                .commit()
-
-        }*/
         return view
 
     }
@@ -74,8 +61,8 @@ class BlankFragment : Fragment() {
 
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed(info:String) {
+        listener?.onFragmentInteraction(info)
     }
 
     override fun onAttach(context: Context) {
@@ -105,8 +92,9 @@ class BlankFragment : Fragment() {
      */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(info: String)
     }
+
 
     companion object {
         /**

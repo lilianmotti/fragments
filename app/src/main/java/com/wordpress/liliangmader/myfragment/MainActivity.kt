@@ -7,22 +7,27 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
-
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast
 import com.wordpress.liliangmader.myfragment.Fragments.*
 
-
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BlankFragment.OnFragmentInteractionListener, SecondFragment.OnFragmentInteractionListener,
-ThirdFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), BlankFragment.OnFragmentInteractionListener {
 
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onFragmentInteraction(info: String) {
+       // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "click activity $info", Toast.LENGTH_SHORT).show()
+        //goes to second fragment
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment, SecondFragment(), secondFragmentTag)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .addToBackStack(secondFragment.toString())
+            .commit()
+
+
     }
 
     var btnNext: Button? =null

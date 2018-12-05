@@ -35,10 +35,6 @@ class ThirdFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_third, container, false)
     }
 
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
 
     companion object {
         /**

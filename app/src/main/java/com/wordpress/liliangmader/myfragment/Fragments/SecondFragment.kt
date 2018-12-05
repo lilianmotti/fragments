@@ -21,6 +21,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class SecondFragment : Fragment() {
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,10 +31,8 @@ class SecondFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_second, container, false)
     }
 
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
+
+
     companion object {
         /**
          * Use this factory method to create a new instance of
